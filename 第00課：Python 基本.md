@@ -23,3 +23,16 @@ print(dynamic) # Hello
 
 4. 物件導向 (Object-oriented programming)
 物件導向，就是透過物件本身所提供的介面 (Interface) 來存取 (Access) 物件內部的屬性或方法
+
+## 優點
+1. 語法簡單、直覺、可讀性高
+2. 龐大第三方函式庫
+3. 可調用 C/JAVA
+4. 好用的互動式程式介面 (Jupyter)
+
+## 缺點
+1. 速度慢 (因為是直譯式需一行編譯一行執行，拖累速度)
+2. Python Multithreading
+   - 雖然叫做 Multithreading，但是實際上只有一條 Thread 被執行。
+   - 詳情請洽 GIL (Global Interpreter Lock)
+     - 簡單說就是一把鑰匙，擁有這把鑰匙的 Thread 才能被 CPU 執行。即使是多核CPU，也沒辦法讓多個Thread「並行」地同時執行代碼，只能是交替執行。
