@@ -1,0 +1,164 @@
+# 第 08 課：常用資料結構之串列
+## 定義和使用串列
+### 串列定義
+串列 (List) 是由一系列元素按照特定順序構成的資料結構。 (可以保存多個資料，並且允許有重複的資料)
+
+在 Python 中，可以使用 `[]` 字面值語法來定義串列，串列重的元素以逗號進行分隔
+```py
+items1 = [35, 12, 99, 68, 55, 87]
+items2 = ['Python', 'Java', 'Go', 'Kotlin']
+```
+
+### 使用 list 將其他序列轉為串列
+準確地說，list 並不是一個普通的函式，他是建立串列物件的建構子
+```py
+item1 = list(range(1, 10))
+print(item1)   # [1, 2, 3, 4, 5, 6, 7, 8, 9]
+item2 = list('hello')
+print(item2)  # ['h, 'e', 'l', 'l', 'o']
+```
+
+:memo: 串列是一種可變資料結構類型，也就是說串列可以加入元素、刪除元素、更新元素。
+而字串是一種不可變的資料類型，也就是說對字串進行拼接、重複、轉換大小寫、去除空白等操作，會產生新的字串，原本的字串沒有發生任何改變。
+
+### 串列的運算子
+和字串類型一樣，串列也支援拼接、重複、成員運算、索引、切片與比較運算
+```py
+items1 = [35, 12, 99, 68, 55, 87]
+items2 = [45, 8, 29]
+
+# 串列的拼接
+items3 = items1 + items2
+print(items3)  # [35, 12, 99, 68, 55, 87, 45, 8, 29]
+
+# 串列重複
+items4 = ['hello'] * 3
+print(items4)  # ['hello', 'hello', 'hello']
+
+# 串列的成員運算
+print(100 in items3)  # False
+print('hello' in items4)  # true
+
+# 取得串列的長度 (元素個數)
+size = len(items3)
+print(size)  # 9
+
+# 串列索引
+print(items3[0], items3[-size])  # 35 35
+items3[-1] = 100
+print(items3[size - 1], items3[-1])  # 100 100
+
+# 串列的切片
+print(items3[:5])          # [35, 12, 99, 68, 55]
+print(items3[4:])          # [55, 87, 45, 8, 100]
+print(items3[-5:-7:-1])    # [55, 68]
+print(items3[::-2])        # [100, 45, 55, 99, 35]
+
+# 串列的比較運算
+items5 = [1, 2, 3, 4]
+items6 = list(range(1, 5))
+
+# 兩個串列比較相等性，比的是對應位置上的元素是否相同
+print(items5 == items6)    # True
+
+# 兩個串列比較大小，比的是對應位置上元素的大小
+items7 = [3, 2, 1]
+print(items5 <= items7)    # True
+```
+
+### 串列的走訪
+如果需要逐一取出串列中的元素，可以使用 for 迴圈
+```py
+# Method 1:
+items = ['Python', 'Java', 'Go', 'Kotlin']
+
+for index in range(len(items)):
+   print(items[index])
+  
+# Method 2: 
+items = ['Python', 'Java', 'Go', 'Kotlin']
+
+for item in items:
+   print(item)
+```
+
+## 串列的方法
+### 加入與刪除元素
+```py
+items = ['Python', 'Java', 'Go', 'Kotlin']
+
+# 使用 append 方法，在串列尾部加入元素
+items.append('Swift')
+print(items)    # ['Python', 'Java', 'Go', 'Kotlin', 'Swift']
+
+# 使用 insert 方法在串列指定的索引插入元素
+items.insert(2, 'SQL')
+print(items)    # ['Python', 'Java', 'SQL', 'Go', 'Kotlin', 'Swift']
+
+# 删除指定的元素
+items.remove('Java')
+print(items)    # ['Python', 'SQL', 'Go', 'Kotlin', 'Swift']
+
+# 删除指定索引位置的元素
+items.pop(0)
+items.pop(len(items) - 1)
+print(items)    # ['SQL', 'Go', 'Kotlin']
+
+# 清空串列中的元素
+items.clear()
+print(items)    # []
+```
+使用 del 也可刪除串列中的元素，這種做法與使用 pop 方法沒有實質型的差異，但是 del 會返回刪除的元素，pop 在性能上略優
+
+### 元素位置和次數
+列表類型的 index 方法可以查找某個元素在列表中的索引位置；因為串列中允許有重複的元素，所以串列類型提供了 `count` 方法來統計出現的次數。
+```py
+items = ['Python', 'Java', 'Java', 'Go', 'Kotlin', 'Python']
+
+# 查找元素的索引位置
+print(items.index('Python'))  # 0
+print(items.index('Python', 2))    # 5
+# 注意：雖然串列中有 Java，但是從索引位 3 這個位置開始後面是沒有 Java 的
+print(items.index('Java', 3)) 
+
+items = ['Python', 'Java', 'Java', 'Go', 'Kotlin', 'Python']
+
+# 查找元素出現的次數
+print(items.count('Python'))    # 2
+print(items.count('Go'))        # 1
+print(items.count('Swfit'))     # 0
+```
+
+### 元素排序與反轉
+`sort` 排序、`reverse` 元素反轉
+```python
+items = ['Python', 'Java', 'Go', 'Koltin', 'Python']
+# 排序
+items.sort()
+print(items)    # ['Go', 'Java', 'Kotlin', 'Python', 'Python']
+# 反轉
+items.reverse()
+print(items)    # ['Python', 'Python', 'Kotlin', 'Java', 'Go']
+```
+
+### 串列的生成式
+在 Python 中，串列還可以透過一種特殊的字面值來創造，這種語法叫做生成式
+
+```py
+# 建立一個由 1 到 9 的數字構成的串列
+items1 = [x for x in range(1, 10)]
+print(items1)    # [1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+# 建立一個由 'hello world' 中去除空白與母音外的字串構成的串列
+items2 = [x for x in 'hello world' if x not in ' aeiou']
+print(items2)    # ['h', 'l', 'l', 'w', 'r', 'l', 'd']
+
+# 創建一個由兩個字串構成的笛卡爾座標串列
+items3 = [x + y for x in 'ABC' for y in '12']
+print(items3)    # ['A1', 'A2', 'B1', 'B2', 'C1', 'C2']
+```
+**強烈建議使用生成式來建立串列**
+
+補充：純量類型 vs 複合類型
+- 純量類型：只能有一個值
+- 複合類型：可以包含多個值 (複合類型是由純量類型組成的)
